@@ -7,7 +7,7 @@ document.getElementById("login-form").addEventListener("submit", function(event)
     let user = document.getElementById("username").value;
     let pass = document.getElementById("password").value;
 
-    if (user === "management" && pass === "management") {
+    if (user === "1" && pass === "1") {
         document.getElementById("login-container").style.display = "none";
         document.getElementById("dashboard").style.display = "block";
         fetchData(); // משיכת נתונים אוטומטית לאחר התחברות
