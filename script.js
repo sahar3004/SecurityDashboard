@@ -1,40 +1,55 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbwV9svrzhDyvv79aS9JTH4waaYSP4mDnzS6q-Pho4MMXqz5_d_SJ8OLijGuXYFsAXA6/exec"; // החלף בכתובת ה-Web App שלך
-// משתנים לניהול התחברות
-const USERNAME = "1";
-const PASSWORD = "1";
+const API_URL = "https://script.google.com/macros/s/YOUR_NEW_SCRIPT_ID/exec"; // הכנס את ה-URL החדש
 
 // פונקציה לניהול התחברות
-function login() {
+document.getElementById("login-form").addEventListener("submit", function(event) {
+    event.preventDefault(); // מונע רענון של הדף
+
     let user = document.getElementById("username").value;
     let pass = document.getElementById("password").value;
-    if (user === USERNAME && pass === PASSWORD) {
+
+    if (user === "management" && pass === "management") {
         document.getElementById("login-container").style.display = "none";
         document.getElementById("dashboard").style.display = "block";
         fetchData(); // משיכת נתונים אוטומטית לאחר התחברות
     } else {
         alert("❌ שם משתמש או סיסמה שגויים!");
     }
-}
+});
 
 // פונקציה לשליפת נתונים מהגיליון
 async function fetchData() {
-  try {
-    const response = await fetch(API_URL);
-    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+    try {
+        console.log("🔄 Fetching data from:", API_URL);
+        const response = await fetch(API_URL);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
 
-    const data = await response.json();
-    
-    if (data.success) {
-      console.log("✅ Data received:", data.data);
-      populateTable(data.data); // עדכון הטבלה עם הנתונים
-    } else {
-      console.error("Error:", data.error);
-      alert(`❌ שגיאה בקבלת נתונים: ${data.error}`);
+        const result = await response.json();
+        
+        if (!result || typeof result !== "object") {
+            throw new Error("🔴 הנתונים שהתקבלו אינם תקינים.");
+        }
+
+        if (result.error) {
+            console.error("❌ שגיאה בקבלת הנתונים:", result.error);
+            alert(`❌ שגיאה בקבלת נתונים: ${result.error}`);
+            return;
+        }
+
+        if (!result.success || !result.data || !Array.isArray(result.data)) {
+            alert("❌ הנתונים שהתקבלו לא תקינים!");
+            console.error("⚠️ הנתונים שהתקבלו:", result);
+            return;
+        }
+
+        console.log("✅ Data received successfully:", result.data);
+        populateTable(result.data);
+    } catch (error) {
+        console.error("⚠️ שגיאה בביצוע הבקשה:", error);
+        alert("❌ לא ניתן למשוך נתונים, בדוק את החיבור לגוגל שיטס.");
     }
-  } catch (error) {
-    console.error("Fetch error:", error);
-    alert("❌ לא ניתן להתחבר לשרת, בדוק את החיבור שלך.");
-  }
 }
 
 // פונקציה להצגת הנתונים בטבלה
@@ -60,6 +75,3 @@ function populateTable(data) {
 
 // פונקציה לרענון נתונים
 document.getElementById("refresh-btn").addEventListener("click", () => fetchData());
-
-// התחברות למערכת
-document.getElementById("login-btn").addEventListener("click", login);
