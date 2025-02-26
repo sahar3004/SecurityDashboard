@@ -4,14 +4,18 @@ const API_URL = "https://script.google.com/macros/s/YOUR_NEW_SCRIPT_ID/exec"; //
 document.getElementById("login-form").addEventListener("submit", function(event) {
     event.preventDefault(); // מונע רענון של הדף
 
-    let user = document.getElementById("username").value;
-    let pass = document.getElementById("password").value;
+    let user = document.getElementById("username").value.trim();
+    let pass = document.getElementById("password").value.trim();
 
-    if (user === "1" && pass === "1") {
-        document.getElementById("login-container").style.display = "none";
-        document.getElementById("dashboard").style.display = "block";
-        fetchData(); // משיכת נתונים אוטומטית לאחר התחברות
+    console.log("🟢 ניסיון התחברות עם שם משתמש:", user); // בדיקה אם המשתמש מזין נתונים
+
+    if (user === "management" && pass === "management") {
+        console.log("✅ התחברות מוצלחת!");
+        document.getElementById("login-container").style.display = "none"; 
+        document.getElementById("dashboard").style.display = "block"; 
+        fetchData(); // טוען נתונים אוטומטית
     } else {
+        console.error("❌ שם משתמש או סיסמה שגויים!");
         alert("❌ שם משתמש או סיסמה שגויים!");
     }
 });
