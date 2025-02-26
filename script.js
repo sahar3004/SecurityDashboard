@@ -7,9 +7,16 @@ document.getElementById("login-form").addEventListener("submit", function(event)
     let user = document.getElementById("username").value.trim();
     let pass = document.getElementById("password").value.trim();
 
-    console.log("🟢 ניסיון התחברות עם שם משתמש:", user); // בדיקה אם המשתמש מזין נתונים
+    console.log("🔍 שם משתמש שהוזן:", `"${user}"`); // הצגת שם המשתמש בקונסול
+    console.log("🔍 סיסמה שהוזנה:", `"${pass}"`); // הצגת סיסמה בקונסול
 
-    if (user === "1" && pass === "1") {
+    const correctUser = "management";
+    const correctPass = "management";
+
+    console.log("✔️ שם משתמש נכון:", `"${correctUser}"`);
+    console.log("✔️ סיסמה נכונה:", `"${correctPass}"`);
+
+    if (user === correctUser && pass === correctPass) {
         console.log("✅ התחברות מוצלחת!");
         document.getElementById("login-container").style.display = "none"; 
         document.getElementById("dashboard").style.display = "block"; 
