@@ -1,4 +1,4 @@
-const API_URL = "YOUR_GOOGLE_SCRIPT_URL_HERE"; // הכנס את ה-URL החדש של ה-Web App
+const API_URL = "https://script.google.com/macros/s/AKfycbwV9svrzhDyvv79aS9JTH4waaYSP4mDnzS6q-Pho4MMXqz5_d_SJ8OLijGuXYFsAXA6/exec"; // הכנס את ה-URL החדש של ה-Web App
 
 // פונקציה לניהול התחברות
 document.getElementById("login-form").addEventListener("submit", function(event) {
