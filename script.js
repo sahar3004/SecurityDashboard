@@ -94,11 +94,11 @@ function populateTable(data) {
     data.forEach(row => {
         let tr = document.createElement("tr");
 
-        let name = row[0]; // שם המאבטח
-        let late = parseInt(row[1]); // איחורים
-        let discipline = parseInt(row[2]); // תקלות משמעת
-        let success = parseInt(row[3]); // הצלחות מבצעיות
-        let failure = parseInt(row[4]); // תקלות מבצעיות
+        let name = row[0] || "לא ידוע"; // שם המאבטח
+        let late = isNaN(row[1]) ? 0 : parseInt(row[1]); // איחורים
+        let discipline = isNaN(row[2]) ? 0 : parseInt(row[2]); // תקלות משמעת
+        let success = isNaN(row[3]) ? 0 : parseInt(row[3]); // הצלחות מבצעיות
+        let failure = isNaN(row[4]) ? 0 : parseInt(row[4]); // תקלות מבצעיות
 
         // הוספת עיצוב מותאם לנתונים
         if (failure >= 3) {
