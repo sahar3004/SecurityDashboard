@@ -126,17 +126,18 @@ document.getElementById("refresh-btn").addEventListener("click", () => fetchData
 
 function sortTable(columnIndex) {
     let table = document.getElementById("data-table");
-    let rows = Array.from(table.querySelectorAll("tbody tr"));
+    let tbody = table.querySelector("tbody");
+    let rows = Array.from(tbody.querySelectorAll("tr"));
+
+    let isNumeric = !isNaN(rows[0].cells[columnIndex].textContent.trim());
 
     let sortedRows = rows.sort((a, b) => {
         let aValue = a.cells[columnIndex].textContent.trim();
         let bValue = b.cells[columnIndex].textContent.trim();
 
-        return isNaN(aValue) ? aValue.localeCompare(bValue) : aValue - bValue;
+        return isNumeric ? aValue - bValue : aValue.localeCompare(bValue, 'he');
     });
 
-    let tbody = table.querySelector("tbody");
     tbody.innerHTML = ""; // ניקוי הנתונים הקודמים
-
     sortedRows.forEach(row => tbody.appendChild(row));
 }
