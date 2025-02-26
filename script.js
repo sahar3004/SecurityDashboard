@@ -1,4 +1,4 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbzDPrKyttnabuPxW6z78NzARSQAcqZi2meeujTeCk0_HCZPp2ZLFBXAuKYqKeJ6G-jvXw/exec"; // הכנס את ה-URL החדש
+const API_URL = "YOUR_GOOGLE_SCRIPT_URL_HERE"; // הכנס את ה-URL החדש של ה-Web App
 
 // פונקציה לניהול התחברות
 document.getElementById("login-form").addEventListener("submit", function(event) {
@@ -7,8 +7,8 @@ document.getElementById("login-form").addEventListener("submit", function(event)
     let user = document.getElementById("username").value.trim();
     let pass = document.getElementById("password").value.trim();
 
-    console.log("🔍 שם משתמש שהוזן:", `"${user}"`); // הצגת שם המשתמש בקונסול
-    console.log("🔍 סיסמה שהוזנה:", `"${pass}"`); // הצגת סיסמה בקונסול
+    console.log("🔍 שם משתמש שהוזן:", `"${user}"`);
+    console.log("🔍 סיסמה שהוזנה:", `"${pass}"`);
 
     const correctUser = "management";
     const correctPass = "management";
@@ -55,7 +55,7 @@ async function fetchData() {
             return;
         }
 
-        console.log("✅ Data received successfully:", result.data);
+        console.log("✅ נתונים נטענו בהצלחה:", result.data);
         populateTable(result.data);
     } catch (error) {
         console.error("⚠️ שגיאה בביצוע הבקשה:", error);
@@ -63,7 +63,7 @@ async function fetchData() {
     }
 }
 
-// פונקציה להצגת הנתונים בטבלה
+// פונקציה לבניית הטבלה עם עיצוב דינמי
 function populateTable(data) {
     let table = document.getElementById("data-table");
     table.innerHTML = ""; // ניקוי הטבלה לפני הכנסת נתונים
@@ -73,7 +73,7 @@ function populateTable(data) {
         return;
     }
 
-    // הוספת כותרות עם אפשרות למיון
+    // יצירת כותרות עם אפשרות למיון
     let headers = ["שם מאבטח", "איחורים", "תקלות משמעת", "הצלחות מבצעיות", "תקלות מבצעיות"];
     let thead = document.createElement("thead");
     let headerRow = document.createElement("tr");
@@ -81,6 +81,7 @@ function populateTable(data) {
     headers.forEach((header, index) => {
         let th = document.createElement("th");
         th.textContent = header;
+        th.style.cursor = "pointer";
         th.onclick = () => sortTable(index);
         headerRow.appendChild(th);
     });
@@ -88,19 +89,19 @@ function populateTable(data) {
     thead.appendChild(headerRow);
     table.appendChild(thead);
 
-    // הוספת הנתונים לטבלה
+    // יצירת גוף הטבלה
     let tbody = document.createElement("tbody");
 
     data.forEach(row => {
         let tr = document.createElement("tr");
 
-        let name = row[0] || "לא ידוע"; // שם המאבטח
-        let late = isNaN(row[1]) ? 0 : parseInt(row[1]); // איחורים
-        let discipline = isNaN(row[2]) ? 0 : parseInt(row[2]); // תקלות משמעת
-        let success = isNaN(row[3]) ? 0 : parseInt(row[3]); // הצלחות מבצעיות
-        let failure = isNaN(row[4]) ? 0 : parseInt(row[4]); // תקלות מבצעיות
+        let name = row[0] ? row[0] : "לא ידוע"; // שם המאבטח
+        let late = !isNaN(row[1]) ? parseInt(row[1]) : 0; // איחורים
+        let discipline = !isNaN(row[2]) ? parseInt(row[2]) : 0; // תקלות משמעת
+        let success = !isNaN(row[3]) ? parseInt(row[3]) : 0; // הצלחות מבצעיות
+        let failure = !isNaN(row[4]) ? parseInt(row[4]) : 0; // תקלות מבצעיות
 
-        // הוספת עיצוב מותאם לנתונים
+        // הוספת עיצוב לפי נתונים
         if (failure >= 3) {
             tr.classList.add("danger"); // רקע אדום לתקלות חמורות
         } else if (discipline >= 2) {
@@ -121,9 +122,7 @@ function populateTable(data) {
     table.appendChild(tbody);
 }
 
-// פונקציה לרענון נתונים
-document.getElementById("refresh-btn").addEventListener("click", () => fetchData());
-
+// פונקציה למיון הנתונים בטבלה
 function sortTable(columnIndex) {
     let table = document.getElementById("data-table");
     let tbody = table.querySelector("tbody");
@@ -135,7 +134,11 @@ function sortTable(columnIndex) {
         let aValue = a.cells[columnIndex].textContent.trim();
         let bValue = b.cells[columnIndex].textContent.trim();
 
-        return isNumeric ? aValue - bValue : aValue.localeCompare(bValue, 'he');
+        if (isNumeric) {
+            return Number(aValue) - Number(bValue);
+        } else {
+            return aValue.localeCompare(bValue, 'he');
+        }
     });
 
     tbody.innerHTML = ""; // ניקוי הנתונים הקודמים
