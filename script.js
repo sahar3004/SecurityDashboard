@@ -1,4 +1,4 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbzDPrKyttnabuPxW6z78NzARSQAcqZi2meeujTeCk0_HCZPp2ZLFBXAuKYqKeJ6G-jvXw/exec"; // הכנס את ה-URL החדש של ה-Web App
+const API_URL = "YOUR_GOOGLE_SCRIPT_URL_HERE"; // הכנס את ה-URL החדש של ה-Web App
 
 // פונקציה לניהול התחברות
 document.getElementById("login-form").addEventListener("submit", function(event) {
@@ -12,9 +12,6 @@ document.getElementById("login-form").addEventListener("submit", function(event)
 
     const correctUser = "management";
     const correctPass = "management";
-
-    console.log("✔️ שם משתמש נכון:", `"${correctUser}"`);
-    console.log("✔️ סיסמה נכונה:", `"${correctPass}"`);
 
     if (user === correctUser && pass === correctPass) {
         console.log("✅ התחברות מוצלחת!");
@@ -63,7 +60,7 @@ async function fetchData() {
     }
 }
 
-// פונקציה לבניית הטבלה עם עיצוב דינמי
+// פונקציה לבניית הטבלה עם טיפול מתקדם בנתונים
 function populateTable(data) {
     let table = document.getElementById("data-table");
     table.innerHTML = ""; // ניקוי הטבלה לפני הכנסת נתונים
@@ -96,10 +93,12 @@ function populateTable(data) {
         let tr = document.createElement("tr");
 
         let name = row[0] ? row[0] : "לא ידוע"; // שם המאבטח
-        let late = !isNaN(row[1]) ? parseInt(row[1]) : 0; // איחורים
-        let discipline = !isNaN(row[2]) ? parseInt(row[2]) : 0; // תקלות משמעת
-        let success = !isNaN(row[3]) ? parseInt(row[3]) : 0; // הצלחות מבצעיות
-        let failure = !isNaN(row[4]) ? parseInt(row[4]) : 0; // תקלות מבצעיות
+        let late = cleanNumber(row[1]); // טיפול מתקדם במספרים
+        let discipline = cleanNumber(row[2]);
+        let success = cleanNumber(row[3]);
+        let failure = cleanNumber(row[4]);
+
+        console.log(`📊 נתונים לפני הכנסת שורה:`, { name, late, discipline, success, failure });
 
         // הוספת עיצוב לפי נתונים
         if (failure >= 3) {
@@ -120,6 +119,14 @@ function populateTable(data) {
     });
 
     table.appendChild(tbody);
+}
+
+// פונקציה לניקוי והמרת מספרים
+function cleanNumber(value) {
+    if (value === undefined || value === null || value === "" || isNaN(value)) {
+        return 0; // אם הערך ריק או לא מספרי, החזר 0
+    }
+    return parseInt(value) || 0; // אם הערך תקין, המרה למספר שלם
 }
 
 // פונקציה למיון הנתונים בטבלה
