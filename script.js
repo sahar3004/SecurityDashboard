@@ -9,7 +9,7 @@ document.getElementById("login-form").addEventListener("submit", function(event)
 
     console.log("🟢 ניסיון התחברות עם שם משתמש:", user); // בדיקה אם המשתמש מזין נתונים
 
-    if (user === "management" && pass === "management") {
+    if (user === "1" && pass === "1") {
         console.log("✅ התחברות מוצלחת!");
         document.getElementById("login-container").style.display = "none"; 
         document.getElementById("dashboard").style.display = "block"; 
