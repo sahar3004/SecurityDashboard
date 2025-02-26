@@ -73,16 +73,70 @@ function populateTable(data) {
         return;
     }
 
+    // הוספת כותרות עם אפשרות למיון
+    let headers = ["שם מאבטח", "איחורים", "תקלות משמעת", "הצלחות מבצעיות", "תקלות מבצעיות"];
+    let thead = document.createElement("thead");
+    let headerRow = document.createElement("tr");
+
+    headers.forEach((header, index) => {
+        let th = document.createElement("th");
+        th.textContent = header;
+        th.onclick = () => sortTable(index);
+        headerRow.appendChild(th);
+    });
+
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
+
+    // הוספת הנתונים לטבלה
+    let tbody = document.createElement("tbody");
+
     data.forEach(row => {
         let tr = document.createElement("tr");
-        row.forEach(cell => {
+
+        let name = row[0]; // שם המאבטח
+        let late = parseInt(row[1]); // איחורים
+        let discipline = parseInt(row[2]); // תקלות משמעת
+        let success = parseInt(row[3]); // הצלחות מבצעיות
+        let failure = parseInt(row[4]); // תקלות מבצעיות
+
+        // הוספת עיצוב מותאם לנתונים
+        if (failure >= 3) {
+            tr.classList.add("danger"); // רקע אדום לתקלות חמורות
+        } else if (discipline >= 2) {
+            tr.classList.add("warning"); // רקע צהוב לתקלות משמעת קלות
+        } else if (success >= 3) {
+            tr.classList.add("success"); // רקע ירוק להצלחות
+        }
+
+        [name, late, discipline, success, failure].forEach(cellData => {
             let td = document.createElement("td");
-            td.textContent = cell;
+            td.textContent = cellData;
             tr.appendChild(td);
         });
-        table.appendChild(tr);
+
+        tbody.appendChild(tr);
     });
+
+    table.appendChild(tbody);
 }
 
 // פונקציה לרענון נתונים
 document.getElementById("refresh-btn").addEventListener("click", () => fetchData());
+
+function sortTable(columnIndex) {
+    let table = document.getElementById("data-table");
+    let rows = Array.from(table.querySelectorAll("tbody tr"));
+
+    let sortedRows = rows.sort((a, b) => {
+        let aValue = a.cells[columnIndex].textContent.trim();
+        let bValue = b.cells[columnIndex].textContent.trim();
+
+        return isNaN(aValue) ? aValue.localeCompare(bValue) : aValue - bValue;
+    });
+
+    let tbody = table.querySelector("tbody");
+    tbody.innerHTML = ""; // ניקוי הנתונים הקודמים
+
+    sortedRows.forEach(row => tbody.appendChild(row));
+}
