@@ -1,4 +1,4 @@
-const API_URL = "https://script.google.com/macros/s/YOUR_NEW_SCRIPT_ID/exec"; // הכנס את ה-URL החדש
+const API_URL = "https://script.google.com/macros/s/AKfycbzDPrKyttnabuPxW6z78NzARSQAcqZi2meeujTeCk0_HCZPp2ZLFBXAuKYqKeJ6G-jvXw/exec"; // הכנס את ה-URL החדש
 
 // פונקציה לניהול התחברות
 document.getElementById("login-form").addEventListener("submit", function(event) {
