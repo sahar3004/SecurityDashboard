@@ -7,32 +7,25 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <form id="login-form">
-    <input type="text" id="username" placeholder="שם משתמש">
-    <input type="password" id="password" placeholder="סיסמה">
-    <button type="submit" id="login-btn">התחבר</button>
-</form>
-    
+
+    <!-- מיכל הכניסה -->
+    <div id="login-container">
+        <form id="login-form">
+            <input type="text" id="username" placeholder="שם משתמש">
+            <input type="password" id="password" placeholder="סיסמה" autocomplete="current-password">
+            <button type="submit">התחבר</button>
+        </form>
+    </div>
+
+    <!-- מיכל הדשבורד (מוסתר כברירת מחדל) -->
     <div id="dashboard" style="display: none;">
         <h1>📊 דשבורד דירוג מאבטחים</h1>
         <button id="refresh-btn">🔄 רענן נתונים</button>
         <table id="data-table"></table>
     </div>
-    
+
+    <!-- טעינת ה-JavaScript לאחר טעינת ה-HTML -->
     <script src="script.js"></script>
+
 </body>
 </html>
-
-<div id="login-container">
-    <form id="login-form">
-        <input type="text" id="username" placeholder="שם משתמש">
-        <input type="password" id="password" placeholder="סיסמה" autocomplete="current-password">
-        <button type="submit">התחבר</button>
-    </form>
-</div>
-
-<div id="dashboard" style="display: none;">
-    <h2>ברוך הבא!</h2>
-    <button id="refresh-btn">רענון נתונים</button>
-    <table id="data-table"></table>
-</div>
