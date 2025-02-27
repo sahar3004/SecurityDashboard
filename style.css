@@ -186,9 +186,9 @@ button:hover {
 /* עיצוב ומיקום הכפתור החדש */
 #toggle-removed-security {
     position: absolute;
-    top: 0;              /* בראש הטבלה */
-    left: -300px;        /* מזיז 300px שמאלה */
-    width: 33%;          /* 1/3 מרוחב הכפתור הקודם */
+    top: -300px;             
+    left: -375px;        
+    width: 33%;          
     padding: 4px 8px;    /* הפחתת הפדינג */
     font-size: 12px;     /* הפחתת גודל הגופן */
 }
