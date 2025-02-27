@@ -16,6 +16,7 @@ body {
 }
 
 #dashboard {
+    position: relative;
     background: white;
     padding: 20px;
     border-radius: 10px;
@@ -184,20 +185,12 @@ button:hover {
 
 /* עיצוב ומיקום הכפתור החדש */
 #toggle-removed-security {
-    background: #28a745;
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    min-width: 140px;
-    font-size: 16px;
-    position: absolute;  /* מיקום אבסולוטי */
-    left: -160px;        /* מיקום בצד שמאל – יש לכוונן לפי הצורך */
-    top: 150px;          /* מיקום אנכי – יש להתאים */
-    margin: 0;
-    transition: background 0.3s ease;
+  position: absolute;
+  left: -200px; /* שנה את הערך בהתאם לצורך */
+  top: 50%;     /* שינוי כדי להתאים לגובה הטבלה */
+  transform: translateY(-50%);
 }
+
 #toggle-removed-security:hover {
     background: #0a5c04;
 }
