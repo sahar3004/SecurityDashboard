@@ -90,10 +90,10 @@ function populateTable(data) {
         th.dataset.column = index;
         headerRow.appendChild(th);
     });
-
     thead.appendChild(headerRow);
     table.appendChild(thead);
 
+    // יצירת גוף הטבלה (tbody)
     let tbody = document.createElement("tbody");
 
     // יצירת שורות הנתונים
@@ -101,31 +101,51 @@ function populateTable(data) {
         let tr = document.createElement("tr");
 
         row.forEach((cell, index) => {
-    let td = document.createElement("td");
-    
-    if (index === 0) {
-        // צור label המכיל תיבת סימון ושם המאבטח
-        let label = document.createElement("label");
-        label.style.display = "flex";
-        label.style.alignItems = "center";
-        label.style.whiteSpace = "nowrap";
-        
-        let checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-        checkbox.checked = true; // כברירת מחדל – המאבטח נמצא בטבלה
-        checkbox.dataset.security = cell;
-        
-        // מאזין לשינוי הסימון
-        checkbox.addEventListener("change", function() {
-            if (!this.checked) {
-                // הסתר את השורה מהטבלה
-                tr.style.display = "none";
-                // הוסף את השורה למערך (האובייקט) של המאבטחים שהוסרו
-                removedSecurityRows[cell] = tr;
-                // עדכן את רשימת "המאבטחים שהוסרו"
-                updateRemovedSecurityList();
+            let td = document.createElement("td");
+
+            if (index === 0) {
+                // צור label המכיל תיבת סימון ושם המאבטח
+                let label = document.createElement("label");
+                label.style.display = "flex";
+                label.style.alignItems = "center";
+                label.style.whiteSpace = "nowrap";
+                
+                let checkbox = document.createElement("input");
+                checkbox.type = "checkbox";
+                checkbox.checked = true; // כברירת מחדל – המאבטח נמצא בטבלה
+                checkbox.dataset.security = cell;
+                
+                // מאזין לשינוי הסימון
+                checkbox.addEventListener("change", function() {
+                    if (!this.checked) {
+                        // הסתר את השורה מהטבלה
+                        tr.style.display = "none";
+                        // הוסף את השורה לאובייקט המאבטחים שהוסרו
+                        removedSecurityRows[cell] = tr;
+                        // עדכן את רשימת "המאבטחים שהוסרו"
+                        updateRemovedSecurityList();
+                    }
+                });
+                
+                let textSpan = document.createElement("span");
+                textSpan.textContent = cell;
+                textSpan.style.marginLeft = "5px";
+                
+                label.appendChild(checkbox);
+                label.appendChild(textSpan);
+                td.appendChild(label);
+            } else {
+                td.textContent = (cell === "ללא ציון רלוונטי") ? "" : cell;
             }
+            td.dataset.column = index;
+            tr.appendChild(td);
         });
+        
+        tbody.appendChild(tr);
+    });
+    
+    table.appendChild(tbody);
+}
         
         let textSpan = document.createElement("span");
         textSpan.textContent = cell;
