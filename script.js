@@ -365,14 +365,6 @@ function updateRemovedSecurityList() {
 
 document.getElementById("toggle-removed-security").addEventListener("click", function () {
     let container = document.getElementById("removed-security-list");
-    let computedDisplay = window.getComputedStyle(container).display;
-    let isOpen = computedDisplay !== "none";
-    container.style.display = isOpen ? "none" : "block";
-});
-
-// מאזין לכפתור "toggle-removed-security"
-document.getElementById("toggle-removed-security").addEventListener("click", function () {
-    let container = document.getElementById("removed-security-list");
     let searchContainer = document.getElementById("removed-security-search-container");
     let arrow = document.getElementById("removed-security-arrow");
 
@@ -383,7 +375,7 @@ document.getElementById("toggle-removed-security").addEventListener("click", fun
     searchContainer.style.display = isOpen ? "none" : "block";
 
     // עדכון חיווי החץ
-    arrow.textContent = isOpen ? "🔽" : "🔼";
+    arrow.textContent = isOpen ? "🔽" : "🔼"; // החץ משתנה בין פתיחה לסגירה
 });
 
 // מאזין למנוע החיפוש עבור רשימת המאבטחים שהוסרו
@@ -397,4 +389,3 @@ document.getElementById("removed-security-search").addEventListener("input", fun
         label.style.display = text.includes(searchValue) ? "" : "none";
     });
 });
-
