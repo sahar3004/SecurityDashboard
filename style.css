@@ -186,7 +186,7 @@ button:hover {
 /* עיצוב ומיקום הכפתור החדש */
 #toggle-removed-security {
     position: absolute;
-    top: -300px;             
+    top: 300px;             
     left: -375px;        
     width: 33%;          
     padding: 4px 8px;    /* הפחתת הפדינג */
