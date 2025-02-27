@@ -191,6 +191,7 @@ button:hover {
     width: 33%;          
     padding: 4px 8px;    /* הפחתת הפדינג */
     font-size: 12px;     /* הפחתת גודל הגופן */
+    z-index: 10;
 }
 
 
@@ -210,6 +211,8 @@ button:hover {
     position: absolute;
     left: -300px;  /* יש לכוונן בהתאם */
     top: 100px;    /* יש לכוונן בהתאם */
+     z-index: 9;
+    
 }
 #removed-security-search {
     width: 100%;
@@ -227,6 +230,7 @@ button:hover {
     border-radius: 5px;
     box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
     padding: 10px;
+    z-index: 8;
 }
 #removed-security-list label {
     display: flex;
@@ -237,6 +241,7 @@ button:hover {
     white-space: nowrap;
     cursor: pointer;
 }
+
 #removed-security-list label:last-child {
     border-bottom: none;
 }
