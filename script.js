@@ -185,20 +185,18 @@ function createSecuritySelectors(names) {
     let selectAllCheckbox = document.getElementById("select-all-security");
 
     container.innerHTML = ""; // מנקה את הרשימה
+    container.style.display = "none"; // הרשימה מוסתרת כברירת מחדל
 
-    // יצירת מאגר שמות המאבטחים לחיפוש
     let allSecurity = names.map(name => ({
         name,
         checkbox: createSecurityCheckbox(name)
     }));
 
-    // הצגת כל המאבטחים כברירת מחדל
-    allSecurity.forEach(({ checkbox }) => container.appendChild(checkbox));
-
-    // חיפוש מאבטח בזמן אמת
+    // חיפוש מאבטחים - יציג את הרשימה רק לאחר הקלדה
     searchInput.addEventListener("input", function () {
         let searchValue = this.value.toLowerCase();
-        container.innerHTML = ""; // נקה את הרשימה
+        container.innerHTML = ""; // מנקה תוצאות ישנות
+        container.style.display = searchValue ? "block" : "none"; // מציג תוצאות רק אם יש חיפוש
 
         allSecurity
             .filter(({ name }) => name.toLowerCase().includes(searchValue))
@@ -221,7 +219,6 @@ function createSecuritySelectors(names) {
         checkbox.checked = true;
         checkbox.dataset.security = name;
         checkbox.addEventListener("change", () => {
-            // אם לא כל המאבטחים מסומנים, בטל את סימון "בחר הכל"
             if (!checkbox.checked) selectAllCheckbox.checked = false;
             filterSecurityView();
         });
@@ -256,25 +253,31 @@ document.getElementById("toggle-security").addEventListener("click", function ()
 });
 
 // הצגת/הסתרת תפריטים בלחיצה
-function toggleDropdown(dropdownId, otherDropdownId) {
+// פונקציה לשליטה בתפריטים והחיצים 🔽/🔼
+function toggleDropdown(dropdownId, arrowId, otherDropdownId, otherArrowId) {
     let dropdown = document.getElementById(dropdownId);
+    let arrow = document.getElementById(arrowId);
     let otherDropdown = document.getElementById(otherDropdownId);
+    let otherArrow = document.getElementById(otherArrowId);
 
-    // אם התפריט האחר פתוח → סגור אותו
+    // סגירת התפריט השני אם הוא פתוח
     if (otherDropdown.style.display === "block") {
         otherDropdown.style.display = "none";
+        otherArrow.textContent = "🔽";
     }
 
-    // הצגת/הסתרת התפריט שנבחר
-    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+    // פתיחה/סגירה של התפריט שנבחר
+    let isOpen = dropdown.style.display === "block";
+    dropdown.style.display = isOpen ? "none" : "block";
+    arrow.textContent = isOpen ? "🔽" : "🔼";
 }
 
 // הצגת/הסתרת תפריט המאבטחים בלחיצה
 document.getElementById("toggle-security").addEventListener("click", function () {
-    toggleDropdown("security-container", "column-container"); // סוגר את תפריט העמודות אם פתוח
+    toggleDropdown("security-container", "security-arrow", "column-container", "columns-arrow");
 });
 
-// הצגת/הסתרת תפריט העמודות (אם יש כפתור כזה)
-document.getElementById("toggle-columns")?.addEventListener("click", function () {
-    toggleDropdown("column-container", "security-container"); // סוגר את תפריט המאבטחים אם פתוח
+// הצגת/הסתרת תפריט העמודות בלחיצה
+document.getElementById("toggle-columns").addEventListener("click", function () {
+    toggleDropdown("column-container", "columns-arrow", "security-container", "security-arrow");
 });
