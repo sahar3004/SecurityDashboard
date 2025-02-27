@@ -255,3 +255,26 @@ document.getElementById("toggle-security").addEventListener("click", function ()
     container.style.display = container.style.display === "block" ? "none" : "block";
 });
 
+// הצגת/הסתרת תפריטים בלחיצה
+function toggleDropdown(dropdownId, otherDropdownId) {
+    let dropdown = document.getElementById(dropdownId);
+    let otherDropdown = document.getElementById(otherDropdownId);
+
+    // אם התפריט האחר פתוח → סגור אותו
+    if (otherDropdown.style.display === "block") {
+        otherDropdown.style.display = "none";
+    }
+
+    // הצגת/הסתרת התפריט שנבחר
+    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+}
+
+// הצגת/הסתרת תפריט המאבטחים בלחיצה
+document.getElementById("toggle-security").addEventListener("click", function () {
+    toggleDropdown("security-container", "column-container"); // סוגר את תפריט העמודות אם פתוח
+});
+
+// הצגת/הסתרת תפריט העמודות (אם יש כפתור כזה)
+document.getElementById("toggle-columns")?.addEventListener("click", function () {
+    toggleDropdown("column-container", "security-container"); // סוגר את תפריט המאבטחים אם פתוח
+});
