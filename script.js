@@ -328,6 +328,7 @@ document.getElementById("refresh-btn").addEventListener("click", function () {
     fetchData(); // שליפת נתונים מחודשת
 });
 
+// פונקציה להוסיף מאבטחים שהוסרו לרשימה
 function updateRemovedSecurityList() {
     let container = document.getElementById("removed-security-list");
     container.innerHTML = ""; // נקה את הרשימה הקודמת
@@ -361,15 +362,15 @@ function updateRemovedSecurityList() {
     }
 }
 
-// פתיחת/סגירת רשימת המאבטחים שהוסרו
+// פונקציה לפתיחת/סגירת רשימת המאבטחים שהוסרו
 document.getElementById("toggle-removed-security").addEventListener("click", function () {
     let container = document.getElementById("removed-security-list");
     let searchContainer = document.getElementById("removed-security-search-container");
     let arrow = document.getElementById("removed-security-arrow");
 
-    let isOpen = container.style.display !== "none";
+    let isOpen = container.style.display !== "none";  // מצב אם הרשימה פתוחה או סגורה
 
-    // פתח או סגור את הרשימה והמנוע
+    // פתח או סגור את הרשימה ומנוע החיפוש
     container.style.display = isOpen ? "none" : "block";
     searchContainer.style.display = isOpen ? "none" : "block";
 
