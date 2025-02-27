@@ -177,44 +177,81 @@ function sortTable(columnIndex) {
     tbody.innerHTML = "";
     sortedRows.forEach(row => tbody.appendChild(row));
 }
-// יצירת אפשרות לבחירת מאבטחים לתצוגה
+
+// יצירת אפשרות לבחירת מאבטחים
 function createSecuritySelectors(names) {
-    let container = document.getElementById("security-container");
-    container.innerHTML = ""; 
+    let container = document.getElementById("security-list");
+    let searchInput = document.getElementById("security-search");
+    let selectAllCheckbox = document.getElementById("select-all-security");
 
-    let selectAllButton = document.getElementById("select-all-security");
-    selectAllButton.addEventListener("click", () => {
-        let checkboxes = container.querySelectorAll("input");
-        let allSelected = selectAllButton.dataset.selected === "true";
+    container.innerHTML = ""; // מנקה את הרשימה
 
-        checkboxes.forEach(cb => cb.checked = !allSelected);
-        selectAllButton.dataset.selected = !allSelected;
+    // יצירת מאגר שמות המאבטחים לחיפוש
+    let allSecurity = names.map(name => ({
+        name,
+        checkbox: createSecurityCheckbox(name)
+    }));
+
+    // הצגת כל המאבטחים כברירת מחדל
+    allSecurity.forEach(({ checkbox }) => container.appendChild(checkbox));
+
+    // חיפוש מאבטח בזמן אמת
+    searchInput.addEventListener("input", function () {
+        let searchValue = this.value.toLowerCase();
+        container.innerHTML = ""; // נקה את הרשימה
+
+        allSecurity
+            .filter(({ name }) => name.toLowerCase().includes(searchValue))
+            .forEach(({ checkbox }) => container.appendChild(checkbox));
+    });
+
+    // בחר הכל
+    selectAllCheckbox.addEventListener("change", function () {
+        let checkboxes = container.querySelectorAll("input[type='checkbox']");
+        let isChecked = this.checked;
+
+        checkboxes.forEach(cb => cb.checked = isChecked);
         filterSecurityView();
     });
 
-    names.forEach(name => {
+    function createSecurityCheckbox(name) {
         let label = document.createElement("label");
         let checkbox = document.createElement("input");
         checkbox.type = "checkbox";
         checkbox.checked = true;
         checkbox.dataset.security = name;
-        checkbox.addEventListener("change", filterSecurityView);
+        checkbox.addEventListener("change", () => {
+            // אם לא כל המאבטחים מסומנים, בטל את סימון "בחר הכל"
+            if (!checkbox.checked) selectAllCheckbox.checked = false;
+            filterSecurityView();
+        });
 
         label.appendChild(checkbox);
         label.appendChild(document.createTextNode(" " + name));
-        container.appendChild(label);
-    });
+        return label;
+    }
 }
 
 // הצגת / הסתרת מאבטחים לפי בחירה
 function filterSecurityView() {
     let table = document.getElementById("data-table");
-    let checkboxes = document.querySelectorAll("#security-container input[type='checkbox']");
+    let checkboxes = document.querySelectorAll("#security-list input[type='checkbox']");
     let selectedSecurity = new Set([...checkboxes].filter(cb => cb.checked).map(cb => cb.dataset.security));
 
     let rows = table.querySelectorAll("tbody tr");
     rows.forEach(row => {
-        let name = row.cells[0]?.textContent.trim(); // שם המאבטח נמצא בעמודה הראשונה
+        let name = row.cells[0]?.textContent.trim();
         row.style.display = selectedSecurity.has(name) ? "" : "none";
     });
+
+    // אם כל המאבטחים מסומנים, הפעל מחדש את "בחר הכל"
+    let allChecked = [...checkboxes].every(cb => cb.checked);
+    document.getElementById("select-all-security").checked = allChecked;
 }
+
+// הצגת/הסתרת תפריט המאבטחים
+document.getElementById("toggle-security").addEventListener("click", function () {
+    let container = document.getElementById("security-container");
+    container.style.display = container.style.display === "block" ? "none" : "block";
+});
+
