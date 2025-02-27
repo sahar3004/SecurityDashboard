@@ -181,3 +181,44 @@ button:hover {
     padding: 10px; /* ניתן להתאים בהתאם לעיצוב הרקע הלבן */
     box-sizing: border-box; /* לוודא שהתוכן לא חורג מהרוחב */
 }
+
+#toggle-removed-security {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    min-width: 140px;
+    font-size: 16px;
+    margin: 10px auto; /* למרכז את הכפתור */
+    display: block;
+    transition: background 0.3s ease;
+}
+#toggle-removed-security:hover {
+    background: #0a5c04;
+}
+#toggle-removed-security:active {
+    background: #24d14a;
+    transform: scale(0.98);
+}
+
+#removed-security-list {
+    max-width: 800px; /* או להתאים לרוחב הדשבורד */
+    margin: 10px auto;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+}
+/* עבור כל פריט (label) ברשימה – נשתמש ב-flex להבטחת סידור אחיד */
+#removed-security-list label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 10px;
+    border-bottom: 1px solid #ddd;
+    white-space: nowrap;
+}
+#removed-security-list label:last-child {
+    border-bottom: none;
+}
