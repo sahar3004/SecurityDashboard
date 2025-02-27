@@ -80,9 +80,7 @@ function populateTable(data) {
     headers.forEach((header, index) => {
         let th = document.createElement("th");
         th.textContent = header;
-        th.style.cursor = "pointer";
         th.dataset.column = index;
-        th.onclick = () => sortTable(index);
         headerRow.appendChild(th);
     });
 
@@ -98,8 +96,13 @@ function populateTable(data) {
         row.forEach((cell, index) => {
             let td = document.createElement("td");
 
-            let cleanValue = cleanNumber(cell);
-            td.textContent = cleanValue;
+            // המרת ערכים ספציפיים
+            if (cell === "ללא ציון רלוונטי") {
+                td.textContent = "";
+            } else {
+                td.textContent = cell;
+            }
+
             td.dataset.column = index; 
             tr.appendChild(td);
         });
