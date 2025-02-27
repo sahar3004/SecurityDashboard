@@ -15,33 +15,36 @@
         </form>
     </div>
 
-  <!-- כותרת דינאמית בראש הדף -->
-<h1 id="dashboard-title">📊 דשבורד דירוג מאבטחים</h1>
+<!-- דשבורד - מוסתר כברירת מחדל -->
+<div id="dashboard" style="display: none;">
+    <!-- כותרת דינאמית בראש הדף -->
+    <h1 id="dashboard-title">📊 דשבורד דירוג מאבטחים</h1>
 
-<!-- אזור כפתורים ביישור לימין -->
-<div id="control-panel">
-    <button id="toggle-columns">⚙️ בחר עמודות <span id="columns-arrow">🔽</span></button>
-    <button id="refresh-btn">🔄 רענן נתונים</button>
-    <button id="toggle-security">📌 בחר מאבטחים <span id="security-arrow">🔽</span></button>
+    <!-- אזור כפתורים ביישור לימין -->
+    <div id="control-panel">
+        <button id="toggle-columns">⚙️ בחר עמודות <span id="columns-arrow">🔽</span></button>
+        <button id="refresh-btn">🔄 רענן נתונים</button>
+        <button id="toggle-security">📌 בחר מאבטחים <span id="security-arrow">🔽</span></button>
+    </div>
+
+    <!-- אזור בחירת מאבטחים -->
+    <div id="security-container" class="dropdown-content" style="display: none;">
+        <input type="text" id="security-search" placeholder="🔍 חפש מאבטח...">
+        <label>
+            <input type="checkbox" id="select-all-security">
+            בחר הכל
+        </label>
+        <div id="security-list"></div>
+    </div>
+
+    <!-- אזור בחירת עמודות -->
+    <div id="column-container" class="dropdown-content" style="display: none;">
+        <!-- כאן יתווספו אפשרויות בחירת עמודות -->
+    </div>
+
+    <!-- אזור הנתונים -->
+    <table id="data-table"></table>
 </div>
-
-<!-- אזור בחירת מאבטחים -->
-<div id="security-container" class="dropdown-content" style="display: none;">
-    <input type="text" id="security-search" placeholder="🔍 חפש מאבטח...">
-    <label>
-        <input type="checkbox" id="select-all-security">
-        בחר הכל
-    </label>
-    <div id="security-list"></div>
-</div>
-
-<!-- אזור בחירת עמודות -->
-<div id="column-container" class="dropdown-content" style="display: none;">
-    <!-- כאן יתווספו אפשרויות בחירת עמודות -->
-</div>
-
-<!-- אזור הנתונים -->
-<table id="data-table"></table>
 
     <script src="script.js"></script>
 </body>
