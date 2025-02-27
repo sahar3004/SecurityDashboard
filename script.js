@@ -9,8 +9,8 @@ document.getElementById("login-form").addEventListener("submit", function(event)
     console.log("🔍 שם משתמש שהוזן:", `"${user}"`);
     console.log("🔍 סיסמה שהוזנה:", `"${pass}"`);
 
-    const correctUser = "management";
-    const correctPass = "management";
+    const correctUser = "1";
+    const correctPass = "1";
 
     if (user === correctUser && pass === correctPass) {
         console.log("✅ התחברות מוצלחת!");
