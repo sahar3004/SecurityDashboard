@@ -52,6 +52,9 @@ async function fetchData() {
         }
 
         console.log("✅ Data received successfully:", result.data);
+        if (result.data && result.data.length > 0) {
+    createColumnSelectors(result.data[0]);
+}
         populateTable(result.data);
     } catch (error) {
         console.error("⚠️ שגיאה בביצוע הבקשה:", error);
