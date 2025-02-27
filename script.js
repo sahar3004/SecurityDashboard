@@ -253,7 +253,11 @@ function toggleDropdown(dropdownId, arrowId) {
     let arrow = document.getElementById(arrowId);
     
     let isOpen = dropdown.style.display === "block";
+    if (dropdownId === "column-container") {
+    dropdown.style.display = isOpen ? "none" : "flex";
+} else {
     dropdown.style.display = isOpen ? "none" : "block";
+}
     arrow.textContent = isOpen ? "🔽" : "🔼";
 }
 
