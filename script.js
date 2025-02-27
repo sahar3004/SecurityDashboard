@@ -138,27 +138,12 @@ function populateTable(data) {
             tr.appendChild(td);
         });
         
-        tbody.appendChild(tr);
+        tbody.appendChild(tr); // הוספת השורה ל־tbody
     });
     
-    table.appendChild(tbody);
+    table.appendChild(tbody); // הוספת ה־tbody לטבלה
 }
-        
-        let textSpan = document.createElement("span");
-        textSpan.textContent = cell;
-        textSpan.style.marginLeft = "5px";
-        
-        label.appendChild(checkbox);
-        label.appendChild(textSpan);
-        td.appendChild(label);
-    } else {
-        // עיבוד תאים רגיל
-        td.textContent = (cell === "ללא ציון רלוונטי") ? "" : cell;
-    }
-    
-    td.dataset.column = index;
-    tr.appendChild(td);
-});
+
 
 
 // יצירת אפשרות לבחירת עמודות לתצוגה
