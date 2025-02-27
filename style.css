@@ -182,6 +182,7 @@ button:hover {
     box-sizing: border-box; /* לוודא שהתוכן לא חורג מהרוחב */
 }
 
+/* עיצוב ומיקום הכפתור החדש */
 #toggle-removed-security {
     background: #28a745;
     color: white;
@@ -191,8 +192,10 @@ button:hover {
     cursor: pointer;
     min-width: 140px;
     font-size: 16px;
-    margin: 10px auto; /* למרכז את הכפתור */
-    display: block;
+    position: absolute;  /* מיקום אבסולוטי */
+    left: -160px;        /* מיקום בצד שמאל – יש לכוונן לפי הצורך */
+    top: 150px;          /* מיקום אנכי – יש להתאים */
+    margin: 0;
     transition: background 0.3s ease;
 }
 #toggle-removed-security:hover {
@@ -203,8 +206,26 @@ button:hover {
     transform: scale(0.98);
 }
 
+/* עיצוב מנוע החיפוש עבור רשימת המאבטחים שהוסרו */
+#removed-security-search-container {
+    padding: 5px;
+    margin: 10px 0;
+    width: 300px;
+    position: absolute;
+    left: -300px;  /* יש לכוונן בהתאם */
+    top: 100px;    /* יש לכוונן בהתאם */
+}
+#removed-security-search {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* עיצוב קונטיינר רשימת המאבטחים שהוסרו */
 #removed-security-list {
-    max-width: 800px; /* להתאים לרוחב הדשבורד */
+    max-width: 800px;
     margin: 10px auto;
     background: #fff;
     border-radius: 5px;
