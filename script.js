@@ -114,7 +114,7 @@ function populateTable(data) {
 
 // יצירת אפשרות לבחירת עמודות לתצוגה
 function createColumnSelectors(headers) {
-    let columnsContainer = document.getElementById("columns-container");
+    let columnsContainer = document.getElementById("column-container");
     columnsContainer.innerHTML = ""; 
 
     headers.forEach((header, index) => {
@@ -243,12 +243,6 @@ function filterSecurityView() {
     let allChecked = [...checkboxes].every(cb => cb.checked);
     document.getElementById("select-all-security").checked = allChecked;
 }
-
-// הצגת/הסתרת תפריט המאבטחים
-document.getElementById("toggle-security").addEventListener("click", function () {
-    let container = document.getElementById("security-container");
-    container.style.display = container.style.display === "block" ? "none" : "block";
-});
 
 // פונקציה לפתיחת/סגירת תפריטים + עדכון החצים 🔽/🔼
 function toggleDropdown(dropdownId, arrowId) {
