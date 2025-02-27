@@ -136,37 +136,30 @@ button:hover {
     margin-bottom: 10px;
 }
 
-/* עיצוב כפתורי הדשבורד בלבד */
-.dashboard-btn {
-    width: 480px; /* רוחב קבוע */
-    height: 40px; /* גובה קבוע */
-    background-color: #24d14a; /* צבע רקע רגיל */
-    color: white; /* צבע טקסט */
-    border: none;
-    border-radius: 5px; /* פינות מעוגלות קלות */
-    cursor: pointer;
+/* עיצוב כפתורי הדשבורד  */
+#control-panel button {
+    padding: 12px 20px;
     font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    background-color: #28a745; /* ירוק */
+    color: white;
     font-weight: bold;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px; /* ריווח בין הטקסט לחץ */
-    transition: background-color 0.2s ease, transform 0.1s ease;
+    white-space: nowrap; /* מונע ירידת שורה */
+    display: inline-block;
+    text-align: center;
+    min-width: 140px; /* רוחב אחיד לכל הכפתורים */
+    transition: background 0.3s ease;
 }
 
-/* חיווי בעת מעבר עכבר */
-.dashboard-btn:hover {
+/* שינוי צבע בעת מעבר עכבר */
+#control-panel button:hover {
     background-color: #0a5c04;
 }
 
 /* חיווי בעת לחיצה */
-.dashboard-btn:active {
+#control-panel button:active {
     background-color: #24d14a;
     transform: scale(0.98); /* אנימציה קטנה בעת לחיצה */
 }
-
-/* עיצוב החצים בתוך הכפתורים */
-.dashboard-btn span {
-    font-size: 14px;
-}
-
