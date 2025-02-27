@@ -122,16 +122,15 @@ function createColumnSelectors(headers) {
 
   headers.forEach((header, index) => {
     let label = document.createElement("label");
-    // קבע את התצוגה כ-flex עם פריסת אלמנטים אופקית
+    // עדכון: אין יותר הגדרת רוחב קבוע אלא ננצל את הגריד של הקונטיינר
     label.style.display = "flex";
     label.style.alignItems = "center";
-    // קבע רוחב קבוע (ניתן להתאים את הערך לפי הצורך)
-    label.style.width = "250px";
-    // רווח קבוע בין האלמנטים
-    label.style.justifyContent = "space-between";
-
+    label.style.whiteSpace = "nowrap"; // מונע שבירת שורה בתוך ה-label
+    // ניתן להוסיף מרווח בין הטקסט לתיבת הסימון
+    
     let textSpan = document.createElement("span");
     textSpan.textContent = header;
+    textSpan.style.marginLeft = "5px"; // ריווח קל בין תיבת הסימון לטקסט
 
     let checkbox = document.createElement("input");
     checkbox.type = "checkbox";
@@ -139,9 +138,10 @@ function createColumnSelectors(headers) {
     checkbox.dataset.column = index;
     checkbox.addEventListener("change", toggleColumnVisibility);
 
-    // הוסף את הטקסט קודם, ולאחר מכן את תיבת הסימון (כך תיבת הסימון תמיד בצד ימין)
-    label.appendChild(textSpan);
+    // הוסף את תיבת הסימון ואז את הטקסט – או להפך, לפי העדפתך.
+    // כאן נניח שתרצה שהתיבה תהיה משמאל לטקסט:
     label.appendChild(checkbox);
+    label.appendChild(textSpan);
 
     columnsContainer.appendChild(label);
 });
