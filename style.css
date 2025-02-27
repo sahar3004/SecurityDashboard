@@ -138,7 +138,7 @@ button:hover {
 
 /* עיצוב הכפתורים */
 button {
-    width: 240px; /* רוחב קבוע */
+    width: 480px; /* רוחב קבוע */
     height: 40px; /* גובה קבוע */
     background-color: #24d14a; /* צבע רקע רגיל */
     color: white; /* צבע טקסט */
