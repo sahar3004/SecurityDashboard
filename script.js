@@ -259,6 +259,10 @@ document.getElementById("toggle-columns").addEventListener("click", function () 
     toggleDropdown("column-container", "columns-arrow");
 });
 
+document.getElementById("toggle-security").addEventListener("click", function () {
+    toggleDropdown("security-container", "security-arrow");
+});
+
 // שינוי מנוע החיפוש – הצגת מאבטחים רק לאחר הקלדה
 document.getElementById("security-search").addEventListener("input", function () {
     let searchValue = this.value.toLowerCase();
