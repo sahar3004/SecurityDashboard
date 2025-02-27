@@ -1,5 +1,7 @@
 const API_URL = "https://script.google.com/macros/s/AKfycbzDPrKyttnabuPxW6z78NzARSQAcqZi2meeujTeCk0_HCZPp2ZLFBXAuKYqKeJ6G-jvXw/exec"; // הכנס את ה-URL החדש של ה-Web App
 
+let removedSecurityRows = {};
+
 document.getElementById("login-form").addEventListener("submit", function(event) {
     event.preventDefault(); 
 
@@ -99,24 +101,48 @@ function populateTable(data) {
         let tr = document.createElement("tr");
 
         row.forEach((cell, index) => {
-            let td = document.createElement("td");
-
-            // המרת ערכים ספציפיים
-            if (cell === "ללא ציון רלוונטי") {
-                td.textContent = "";
-            } else {
-                td.textContent = cell;
+    let td = document.createElement("td");
+    
+    if (index === 0) {
+        // צור label המכיל תיבת סימון ושם המאבטח
+        let label = document.createElement("label");
+        label.style.display = "flex";
+        label.style.alignItems = "center";
+        label.style.whiteSpace = "nowrap";
+        
+        let checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = true; // כברירת מחדל – המאבטח נמצא בטבלה
+        checkbox.dataset.security = cell;
+        
+        // מאזין לשינוי הסימון
+        checkbox.addEventListener("change", function() {
+            if (!this.checked) {
+                // הסתר את השורה מהטבלה
+                tr.style.display = "none";
+                // הוסף את השורה למערך (האובייקט) של המאבטחים שהוסרו
+                removedSecurityRows[cell] = tr;
+                // עדכן את רשימת "המאבטחים שהוסרו"
+                updateRemovedSecurityList();
             }
-
-            td.dataset.column = index; 
-            tr.appendChild(td);
         });
+        
+        let textSpan = document.createElement("span");
+        textSpan.textContent = cell;
+        textSpan.style.marginLeft = "5px";
+        
+        label.appendChild(checkbox);
+        label.appendChild(textSpan);
+        td.appendChild(label);
+    } else {
+        // עיבוד תאים רגיל
+        td.textContent = (cell === "ללא ציון רלוונטי") ? "" : cell;
+    }
+    
+    td.dataset.column = index;
+    tr.appendChild(td);
+});
 
-        tbody.appendChild(tr);
-    });
-
-    table.appendChild(tbody);
-}
 
 // יצירת אפשרות לבחירת עמודות לתצוגה
 function createColumnSelectors(headers) {
