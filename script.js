@@ -254,11 +254,6 @@ function toggleDropdown(dropdownId, arrowId) {
     arrow.textContent = isOpen ? "🔽" : "🔼";
 }
 
-// פתיחת/סגירת "בחר מאבטחים" (כולל הצגת מנוע החיפוש)
-document.getElementById("toggle-security").addEventListener("click", function () {
-    toggleDropdown("security-container", "security-arrow");
-});
-
 // פתיחת/סגירת "בחר עמודות"
 document.getElementById("toggle-columns").addEventListener("click", function () {
     toggleDropdown("column-container", "columns-arrow");
