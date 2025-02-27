@@ -25,6 +25,9 @@
         <button id="toggle-columns">⚙️ בחר עמודות <span id="columns-arrow">🔽</span></button>
         <button id="refresh-btn">🔄 רענן נתונים</button>
         <button id="toggle-security">📌 בחר מאבטחים <span id="security-arrow">🔽</span></button>
+        
+        <!-- כפתור לפתיחת/סגירת רשימת המאבטחים שהוסרו מהטבלה -->
+        <button id="toggle-removed-security">רשימת המאבטחים שהוסרו מהטבלה</button>
     </div>
 
     <!-- אזור בחירת מאבטחים -->
@@ -45,6 +48,12 @@
     <!-- אזור הנתונים -->
     <table id="data-table"></table>
 </div>
+
+    <!-- קונטיינר לרשימת המאבטחים שהוסרו מהטבלה -->
+<div id="removed-security-list" style="display: none; border: 1px solid #ddd; padding: 10px; margin-top: 10px;">
+    <!-- הרשימה תתמלא דינאמית -->
+</div>
+
 
     <script src="script.js"></script>
 </body>
