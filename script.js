@@ -120,19 +120,31 @@ function createColumnSelectors(headers) {
     let columnsContainer = document.getElementById("column-container");
     columnsContainer.innerHTML = ""; 
 
-    headers.forEach((header, index) => {
-        let label = document.createElement("label");
-        let checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-        checkbox.checked = true;
-        checkbox.dataset.column = index;
-        checkbox.addEventListener("change", toggleColumnVisibility);
+  headers.forEach((header, index) => {
+    let label = document.createElement("label");
+    // קבע את התצוגה כ-flex עם פריסת אלמנטים אופקית
+    label.style.display = "flex";
+    label.style.alignItems = "center";
+    // קבע רוחב קבוע (ניתן להתאים את הערך לפי הצורך)
+    label.style.width = "250px";
+    // רווח קבוע בין האלמנטים
+    label.style.justifyContent = "space-between";
 
-        label.appendChild(checkbox);
-        label.appendChild(document.createTextNode(" " + header));
-        columnsContainer.appendChild(label);
-    });
-}
+    let textSpan = document.createElement("span");
+    textSpan.textContent = header;
+
+    let checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = true;
+    checkbox.dataset.column = index;
+    checkbox.addEventListener("change", toggleColumnVisibility);
+
+    // הוסף את הטקסט קודם, ולאחר מכן את תיבת הסימון (כך תיבת הסימון תמיד בצד ימין)
+    label.appendChild(textSpan);
+    label.appendChild(checkbox);
+
+    columnsContainer.appendChild(label);
+});
 
 // הצגת / הסתרת עמודות לפי בחירה
 function toggleColumnVisibility(event) {
@@ -252,7 +264,10 @@ function toggleDropdown(dropdownId, arrowId) {
     let dropdown = document.getElementById(dropdownId);
     let arrow = document.getElementById(arrowId);
     
-    let isOpen = dropdown.style.display === "block";
+    let computedDisplay = window.getComputedStyle(dropdown).display;
+    // עבור "column-container" תשתמש ב-"flex" כמצב פתוח
+    let isOpen = (dropdownId === "column-container") ? (computedDisplay === "flex") : (computedDisplay !== "none");
+
     if (dropdownId === "column-container") {
     dropdown.style.display = isOpen ? "none" : "flex";
 } else {
