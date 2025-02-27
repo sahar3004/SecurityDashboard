@@ -360,3 +360,11 @@ function updateRemovedSecurityList() {
         container.appendChild(label);
     }
 }
+
+document.getElementById("toggle-removed-security").addEventListener("click", function () {
+    let container = document.getElementById("removed-security-list");
+    let computedDisplay = window.getComputedStyle(container).display;
+    let isOpen = computedDisplay !== "none";
+    container.style.display = isOpen ? "none" : "block";
+});
+
