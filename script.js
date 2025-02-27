@@ -25,7 +25,6 @@ document.getElementById("login-form").addEventListener("submit", function(event)
     }
 });
 
-// שליפת נתונים מהגיליון
 async function fetchData() {
     try {
         console.log("🔄 Fetching data...");
@@ -55,8 +54,8 @@ async function fetchData() {
 
         console.log("✅ Data received successfully:", result.data);
         if (result.data && result.data.length > 0) {
-    createColumnSelectors(result.data[0]);
-}
+            createColumnSelectors(result.data[0]);
+        }
         populateTable(result.data);
     } catch (error) {
         console.error("⚠️ שגיאה בביצוע הבקשה:", error);
@@ -87,10 +86,10 @@ function populateTable(data) {
         th.dataset.column = index;
         headerRow.appendChild(th);
     });
+
     thead.appendChild(headerRow);
     table.appendChild(thead);
 
-    // יצירת גוף הטבלה (tbody)
     let tbody = document.createElement("tbody");
 
     // יצירת שורות הנתונים
@@ -134,17 +133,16 @@ function populateTable(data) {
             } else {
                 td.textContent = (cell === "ללא ציון רלוונטי") ? "" : cell;
             }
+
             td.dataset.column = index;
             tr.appendChild(td);
         });
         
-        tbody.appendChild(tr); // הוספת השורה ל־tbody
+        tbody.appendChild(tr);
     });
     
-    table.appendChild(tbody); // הוספת ה־tbody לטבלה
+    table.appendChild(tbody);
 }
-
-
 
 // יצירת אפשרות לבחירת עמודות לתצוגה
 function createColumnSelectors(headers) {
@@ -363,6 +361,7 @@ function updateRemovedSecurityList() {
     }
 }
 
+// פתיחת/סגירת רשימת המאבטחים שהוסרו
 document.getElementById("toggle-removed-security").addEventListener("click", function () {
     let container = document.getElementById("removed-security-list");
     let searchContainer = document.getElementById("removed-security-search-container");
