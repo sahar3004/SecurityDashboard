@@ -138,11 +138,11 @@ button:hover {
 
 /* כפתורים אחידים */
 #control-panel button {
-    padding: 8px 12px;
+    padding: 10px 15px;
     font-size: 16px;
     cursor: pointer;
     border-radius: 5px;
-    border: 1px solid #ccc;
+    border: none;
     background-color: #28a745; /* ירוק */
     color: white;
     font-weight: bold;
