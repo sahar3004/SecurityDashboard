@@ -1,8 +1,7 @@
 const API_URL = "https://script.google.com/macros/s/AKfycbzDPrKyttnabuPxW6z78NzARSQAcqZi2meeujTeCk0_HCZPp2ZLFBXAuKYqKeJ6G-jvXw/exec"; // הכנס את ה-URL החדש של ה-Web App
 
-// פונקציה לניהול התחברות
 document.getElementById("login-form").addEventListener("submit", function(event) {
-    event.preventDefault(); // מונע רענון של הדף
+    event.preventDefault(); 
 
     let user = document.getElementById("username").value.trim();
     let pass = document.getElementById("password").value.trim();
@@ -24,7 +23,7 @@ document.getElementById("login-form").addEventListener("submit", function(event)
     }
 });
 
-// פונקציה לשליפת נתונים מהגיליון
+// שליפת נתונים מהגיליון
 async function fetchData() {
     try {
         console.log("🔄 Fetching data from:", API_URL);
@@ -54,24 +53,27 @@ async function fetchData() {
 
         console.log("✅ נתונים נטענו בהצלחה:", result.data);
         populateTable(result.data);
+        createColumnSelectors(result.data[0]); // יצירת אפשרות לבחירת עמודות
     } catch (error) {
         console.error("⚠️ שגיאה בביצוע הבקשה:", error);
         alert("❌ לא ניתן למשוך נתונים, בדוק את החיבור לגוגל שיטס.");
     }
 }
 
-// פונקציה לבניית הטבלה עם טיפול מתקדם בנתונים
+// בניית הטבלה עם כל הנתונים
 function populateTable(data) {
     let table = document.getElementById("data-table");
-    table.innerHTML = ""; // ניקוי הטבלה לפני הכנסת נתונים
+    table.innerHTML = ""; 
 
     if (!data || data.length === 0) {
         table.innerHTML = "<tr><td colspan='5'>❌ לא נמצאו נתונים</td></tr>";
         return;
     }
 
-    // יצירת כותרות עם אפשרות למיון
-    let headers = ["שם מאבטח", "איחורים", "תקלות משמעת", "הצלחות מבצעיות", "תקלות מבצעיות"];
+    console.log("📊 מבנה הנתונים שהתקבלו:", data);
+
+    // יצירת כותרות
+    let headers = data[0]; 
     let thead = document.createElement("thead");
     let headerRow = document.createElement("tr");
 
@@ -79,6 +81,7 @@ function populateTable(data) {
         let th = document.createElement("th");
         th.textContent = header;
         th.style.cursor = "pointer";
+        th.dataset.column = index;
         th.onclick = () => sortTable(index);
         headerRow.appendChild(th);
     });
@@ -86,32 +89,18 @@ function populateTable(data) {
     thead.appendChild(headerRow);
     table.appendChild(thead);
 
-    // יצירת גוף הטבלה
     let tbody = document.createElement("tbody");
 
-    data.forEach(row => {
+    // יצירת שורות הנתונים
+    data.slice(1).forEach(row => {
         let tr = document.createElement("tr");
 
-        let name = row[0] ? row[0] : "לא ידוע"; // שם המאבטח
-        let late = cleanNumber(row[1]); // טיפול מתקדם במספרים
-        let discipline = cleanNumber(row[2]);
-        let success = cleanNumber(row[3]);
-        let failure = cleanNumber(row[4]);
-
-        console.log(`📊 נתונים לפני הכנסת שורה:`, { name, late, discipline, success, failure });
-
-        // הוספת עיצוב לפי נתונים
-        if (failure >= 3) {
-            tr.classList.add("danger"); // רקע אדום לתקלות חמורות
-        } else if (discipline >= 2) {
-            tr.classList.add("warning"); // רקע צהוב לתקלות משמעת קלות
-        } else if (success >= 3) {
-            tr.classList.add("success"); // רקע ירוק להצלחות
-        }
-
-        [name, late, discipline, success, failure].forEach(cellData => {
+        row.forEach((cell, index) => {
             let td = document.createElement("td");
-            td.textContent = cellData;
+
+            let cleanValue = cleanNumber(cell);
+            td.textContent = cleanValue;
+            td.dataset.column = index; 
             tr.appendChild(td);
         });
 
@@ -121,15 +110,48 @@ function populateTable(data) {
     table.appendChild(tbody);
 }
 
-// פונקציה לניקוי והמרת מספרים
-function cleanNumber(value) {
-    if (value === undefined || value === null || value === "" || isNaN(value)) {
-        return 0; // אם הערך ריק או לא מספרי, החזר 0
-    }
-    return parseInt(value) || 0; // אם הערך תקין, המרה למספר שלם
+// יצירת אפשרות לבחירת עמודות לתצוגה
+function createColumnSelectors(headers) {
+    let columnsContainer = document.getElementById("columns-container");
+    columnsContainer.innerHTML = ""; 
+
+    headers.forEach((header, index) => {
+        let label = document.createElement("label");
+        let checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = true;
+        checkbox.dataset.column = index;
+        checkbox.addEventListener("change", toggleColumnVisibility);
+
+        label.appendChild(checkbox);
+        label.appendChild(document.createTextNode(" " + header));
+        columnsContainer.appendChild(label);
+    });
 }
 
-// פונקציה למיון הנתונים בטבלה
+// הצגת / הסתרת עמודות לפי בחירה
+function toggleColumnVisibility(event) {
+    let columnIndex = event.target.dataset.column;
+    let table = document.getElementById("data-table");
+    let rows = table.querySelectorAll("tr");
+
+    rows.forEach(row => {
+        let cell = row.cells[columnIndex];
+        if (cell) {
+            cell.style.display = event.target.checked ? "" : "none";
+        }
+    });
+}
+
+// המרת מספרים וטיפול במידע ריק
+function cleanNumber(value) {
+    if (value === undefined || value === null || value === "" || isNaN(value)) {
+        return 0;
+    }
+    return Number(value) || value; 
+}
+
+// מיון הנתונים בטבלה
 function sortTable(columnIndex) {
     let table = document.getElementById("data-table");
     let tbody = table.querySelector("tbody");
@@ -148,6 +170,6 @@ function sortTable(columnIndex) {
         }
     });
 
-    tbody.innerHTML = ""; // ניקוי הנתונים הקודמים
+    tbody.innerHTML = "";
     sortedRows.forEach(row => tbody.appendChild(row));
 }
