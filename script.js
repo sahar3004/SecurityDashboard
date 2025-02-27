@@ -250,33 +250,24 @@ document.getElementById("toggle-security").addEventListener("click", function ()
     container.style.display = container.style.display === "block" ? "none" : "block";
 });
 
-// פונקציה לפתיחה וסגירה של תפריטים + חצים 🔽/🔼
-function toggleDropdown(dropdownId, arrowId, otherDropdownId, otherArrowId) {
+// פונקציה לפתיחת/סגירת תפריטים + עדכון החצים 🔽/🔼
+function toggleDropdown(dropdownId, arrowId) {
     let dropdown = document.getElementById(dropdownId);
     let arrow = document.getElementById(arrowId);
-    let otherDropdown = document.getElementById(otherDropdownId);
-    let otherArrow = document.getElementById(otherArrowId);
-
-    // סגירת תפריט אחר אם פתוח
-    if (otherDropdown.style.display === "block") {
-        otherDropdown.style.display = "none";
-        otherArrow.textContent = "🔽";
-    }
-
-    // פתיחה/סגירה של התפריט שנבחר
+    
     let isOpen = dropdown.style.display === "block";
     dropdown.style.display = isOpen ? "none" : "block";
     arrow.textContent = isOpen ? "🔽" : "🔼";
 }
 
-// פתיחת/סגירת "בחר מאבטחים"
+// פתיחת/סגירת "בחר מאבטחים" (כולל הצגת מנוע החיפוש)
 document.getElementById("toggle-security").addEventListener("click", function () {
-    toggleDropdown("security-container", "security-arrow", "column-container", "columns-arrow");
+    toggleDropdown("security-container", "security-arrow");
 });
 
 // פתיחת/סגירת "בחר עמודות"
 document.getElementById("toggle-columns").addEventListener("click", function () {
-    toggleDropdown("column-container", "columns-arrow", "security-container", "security-arrow");
+    toggleDropdown("column-container", "columns-arrow");
 });
 
 // שינוי מנוע החיפוש – הצגת מאבטחים רק לאחר הקלדה
@@ -290,3 +281,4 @@ document.getElementById("security-search").addEventListener("input", function ()
 document.getElementById("refresh-btn").addEventListener("click", function () {
     fetchData(); // שליפת נתונים מחודשת
 });
+
