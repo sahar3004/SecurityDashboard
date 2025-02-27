@@ -54,6 +54,7 @@ async function fetchData() {
         console.log("✅ נתונים נטענו בהצלחה:", result.data);
         populateTable(result.data);
         createColumnSelectors(result.data[0]); // יצירת אפשרות לבחירת עמודות
+        createSecuritySelectors(result.data.slice(1).map(row => row[0])); // יצירת בחירה למאבטחים
     } catch (error) {
         console.error("⚠️ שגיאה בביצוע הבקשה:", error);
         alert("❌ לא ניתן למשוך נתונים, בדוק את החיבור לגוגל שיטס.");
@@ -175,4 +176,45 @@ function sortTable(columnIndex) {
 
     tbody.innerHTML = "";
     sortedRows.forEach(row => tbody.appendChild(row));
+}
+// יצירת אפשרות לבחירת מאבטחים לתצוגה
+function createSecuritySelectors(names) {
+    let container = document.getElementById("security-container");
+    container.innerHTML = ""; 
+
+    let selectAllButton = document.getElementById("select-all-security");
+    selectAllButton.addEventListener("click", () => {
+        let checkboxes = container.querySelectorAll("input");
+        let allSelected = selectAllButton.dataset.selected === "true";
+
+        checkboxes.forEach(cb => cb.checked = !allSelected);
+        selectAllButton.dataset.selected = !allSelected;
+        filterSecurityView();
+    });
+
+    names.forEach(name => {
+        let label = document.createElement("label");
+        let checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = true;
+        checkbox.dataset.security = name;
+        checkbox.addEventListener("change", filterSecurityView);
+
+        label.appendChild(checkbox);
+        label.appendChild(document.createTextNode(" " + name));
+        container.appendChild(label);
+    });
+}
+
+// הצגת / הסתרת מאבטחים לפי בחירה
+function filterSecurityView() {
+    let table = document.getElementById("data-table");
+    let checkboxes = document.querySelectorAll("#security-container input[type='checkbox']");
+    let selectedSecurity = new Set([...checkboxes].filter(cb => cb.checked).map(cb => cb.dataset.security));
+
+    let rows = table.querySelectorAll("tbody tr");
+    rows.forEach(row => {
+        let name = row.cells[0]?.textContent.trim(); // שם המאבטח נמצא בעמודה הראשונה
+        row.style.display = selectedSecurity.has(name) ? "" : "none";
+    });
 }
