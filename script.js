@@ -26,7 +26,7 @@ document.getElementById("login-form").addEventListener("submit", function(event)
 // שליפת נתונים מהגיליון
 async function fetchData() {
     try {
-        console.log("🔄 Fetching data from:", API_URL);
+        console.log("🔄 Fetching data...");
         const response = await fetch(API_URL);
         
         if (!response.ok) {
@@ -51,10 +51,8 @@ async function fetchData() {
             return;
         }
 
-        console.log("✅ נתונים נטענו בהצלחה:", result.data);
+        console.log("✅ Data received successfully:", result.data);
         populateTable(result.data);
-        createColumnSelectors(result.data[0]); // יצירת אפשרות לבחירת עמודות
-        createSecuritySelectors(result.data.slice(1).map(row => row[0])); // יצירת בחירה למאבטחים
     } catch (error) {
         console.error("⚠️ שגיאה בביצוע הבקשה:", error);
         alert("❌ לא ניתן למשוך נתונים, בדוק את החיבור לגוגל שיטס.");
@@ -252,7 +250,6 @@ document.getElementById("toggle-security").addEventListener("click", function ()
     container.style.display = container.style.display === "block" ? "none" : "block";
 });
 
-// פונקציה לשליטה בתפריטים והחיצים 🔽/🔼
 // פונקציה לפתיחה וסגירה של תפריטים + חצים 🔽/🔼
 function toggleDropdown(dropdownId, arrowId, otherDropdownId, otherArrowId) {
     let dropdown = document.getElementById(dropdownId);
@@ -272,12 +269,12 @@ function toggleDropdown(dropdownId, arrowId, otherDropdownId, otherArrowId) {
     arrow.textContent = isOpen ? "🔽" : "🔼";
 }
 
-// פתיחת/סגירת בחר מאבטחים
+// פתיחת/סגירת "בחר מאבטחים"
 document.getElementById("toggle-security").addEventListener("click", function () {
     toggleDropdown("security-container", "security-arrow", "column-container", "columns-arrow");
 });
 
-// פתיחת/סגירת בחר עמודות
+// פתיחת/סגירת "בחר עמודות"
 document.getElementById("toggle-columns").addEventListener("click", function () {
     toggleDropdown("column-container", "columns-arrow", "security-container", "security-arrow");
 });
@@ -287,4 +284,9 @@ document.getElementById("security-search").addEventListener("input", function ()
     let searchValue = this.value.toLowerCase();
     let container = document.getElementById("security-list");
     container.style.display = searchValue ? "block" : "none"; // לא פותח תפריטים
+});
+
+// תיקון כפתור "רענן נתונים" כך שיעדכן את הטבלה
+document.getElementById("refresh-btn").addEventListener("click", function () {
+    fetchData(); // שליפת נתונים מחודשת
 });
