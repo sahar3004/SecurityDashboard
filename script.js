@@ -23,6 +23,9 @@ document.getElementById("login-form").addEventListener("submit", function(event)
     }
 });
 
+// אובייקט לאחסון שורות המאבטחים שהוסרו מהטבלה, key: שם המאבטח, value: השורה (element)
+let removedSecurityRows = {};
+
 // שליפת נתונים מהגיליון
 async function fetchData() {
     try {
