@@ -328,3 +328,35 @@ document.getElementById("refresh-btn").addEventListener("click", function () {
     fetchData(); // שליפת נתונים מחודשת
 });
 
+function updateRemovedSecurityList() {
+    let container = document.getElementById("removed-security-list");
+    container.innerHTML = ""; // נקה את הרשימה הקודמת
+    
+    for (let security in removedSecurityRows) {
+        let label = document.createElement("label");
+        label.style.cursor = "pointer";
+        
+        let checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = false; // כברירת מחדל – לא מסומן
+        checkbox.dataset.security = security;
+        
+        // מאזין לשינוי – לחיצה על תיבת הסימון מחזירה את המאבטח לטבלה
+        checkbox.addEventListener("change", function() {
+            if (this.checked) {
+                let row = removedSecurityRows[security];
+                row.style.display = ""; // החזר את השורה לטבלה
+                delete removedSecurityRows[security];
+                updateRemovedSecurityList();
+            }
+        });
+        
+        let textSpan = document.createElement("span");
+        textSpan.textContent = security;
+        textSpan.style.marginLeft = "5px";
+        
+        label.appendChild(checkbox);
+        label.appendChild(textSpan);
+        container.appendChild(label);
+    }
+}
