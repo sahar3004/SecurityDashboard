@@ -204,13 +204,13 @@ button:hover {
 }
 
 #removed-security-list {
-    max-width: 800px; /* או להתאים לרוחב הדשבורד */
+    max-width: 800px; /* להתאים לרוחב הדשבורד */
     margin: 10px auto;
     background: #fff;
     border-radius: 5px;
     box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    padding: 10px;
 }
-/* עבור כל פריט (label) ברשימה – נשתמש ב-flex להבטחת סידור אחיד */
 #removed-security-list label {
     display: flex;
     align-items: center;
@@ -218,7 +218,9 @@ button:hover {
     padding: 5px 10px;
     border-bottom: 1px solid #ddd;
     white-space: nowrap;
+    cursor: pointer;
 }
 #removed-security-list label:last-child {
     border-bottom: none;
 }
+
