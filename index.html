@@ -27,11 +27,19 @@
             <button id="refresh-btn">🔄 רענן נתונים</button>
         </div>
         
-        <!-- אזור בחירת מאבטחים -->
+<!-- אזור בחירת מאבטחים -->
 <div id="security-selector">
-    <button id="select-all-security">בחר מאבטחים</button>
-    <div id="security-container" class="dropdown-content"></div>
+    <button id="toggle-security">📌 בחר מאבטחים</button>
+    <div id="security-container" class="dropdown-content">
+        <input type="text" id="security-search" placeholder="🔍 חפש מאבטח...">
+        <label>
+            <input type="checkbox" id="select-all-security">
+            בחר הכל
+        </label>
+        <div id="security-list"></div>
+    </div>
 </div>
+
 
         <!-- טבלת הנתונים -->
         <table id="data-table"></table>
