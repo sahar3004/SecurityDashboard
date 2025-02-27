@@ -136,9 +136,9 @@ button:hover {
     margin-bottom: 10px;
 }
 
-/* כפתורים אחידים */
+/* עיצוב כפתורים - צבע ירוק עם רוחב אחיד */
 #control-panel button {
-    padding: 10px 15px;
+    padding: 12px 20px;
     font-size: 16px;
     cursor: pointer;
     border-radius: 5px;
@@ -146,8 +146,13 @@ button:hover {
     background-color: #28a745; /* ירוק */
     color: white;
     font-weight: bold;
+    white-space: nowrap; /* מונע ירידת שורה */
+    display: inline-block;
+    text-align: center;
+    min-width: 140px; /* רוחב אחיד לכל הכפתורים */
     transition: background 0.3s ease;
 }
+
 /* שינוי צבע בעת מעבר עכבר */
 #control-panel button:hover {
     background-color: #0a5c04;
