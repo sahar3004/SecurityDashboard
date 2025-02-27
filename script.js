@@ -145,6 +145,8 @@ function createColumnSelectors(headers) {
 
     columnsContainer.appendChild(label);
 });
+}
+
 
 // הצגת / הסתרת עמודות לפי בחירה
 function toggleColumnVisibility(event) {
