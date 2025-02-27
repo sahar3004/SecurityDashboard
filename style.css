@@ -149,7 +149,7 @@ button:hover {
     white-space: nowrap; /* מונע ירידת שורה */
     display: inline-block;
     text-align: center;
-    min-width: 140px; /* רוחב אחיד לכל הכפתורים */
+    min-width: 320px; /* רוחב אחיד לכל הכפתורים */
     transition: background 0.3s ease;
 }
 
