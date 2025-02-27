@@ -370,3 +370,31 @@ document.getElementById("toggle-removed-security").addEventListener("click", fun
     container.style.display = isOpen ? "none" : "block";
 });
 
+// מאזין לכפתור "toggle-removed-security"
+document.getElementById("toggle-removed-security").addEventListener("click", function () {
+    let container = document.getElementById("removed-security-list");
+    let searchContainer = document.getElementById("removed-security-search-container");
+    let arrow = document.getElementById("removed-security-arrow");
+
+    let isOpen = container.style.display !== "none";
+
+    // פתח או סגור את הרשימה והמנוע
+    container.style.display = isOpen ? "none" : "block";
+    searchContainer.style.display = isOpen ? "none" : "block";
+
+    // עדכון חיווי החץ
+    arrow.textContent = isOpen ? "🔽" : "🔼";
+});
+
+// מאזין למנוע החיפוש עבור רשימת המאבטחים שהוסרו
+document.getElementById("removed-security-search").addEventListener("input", function () {
+    let searchValue = this.value.toLowerCase();
+    let container = document.getElementById("removed-security-list");
+    let labels = container.querySelectorAll("label");
+
+    labels.forEach(label => {
+        let text = label.querySelector("span").textContent.toLowerCase();
+        label.style.display = text.includes(searchValue) ? "" : "none";
+    });
+});
+
