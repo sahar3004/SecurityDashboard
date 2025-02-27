@@ -203,15 +203,20 @@ button:hover {
     transform: scale(0.98); /* רק שינוי קנה מידה, ללא העברת מיקום */
 }
 
-/* עיצוב מנוע החיפוש עבור רשימת המאבטחים שהוסרו */
+/* מיקום מנוע החיפוש מתחת לכפתור */
 #removed-security-search-container {
-    padding: 5px;
-    margin: 10px 0;
-    width: 300px;
     position: absolute;
-    left: -300px;  /* יש לכוונן בהתאם */
-    top: 100px;    /* יש לכוונן בהתאם */
-     z-index: 9;
+    top: 50px; /* מקום מוגדר מתחת לכפתור */
+    left: -10px; /* עמדת החיפוש מתואמת עם הכפתור */
+    width: 300px;
+    margin-top: 10px;  /* להוסיף רווח מלמעלה */
+}
+
+/* מיקום כפתור החץ בימין החיפוש */
+#removed-security-arrow {
+    margin-left: 10px;
+}
+
     
 }
 #removed-security-search {
