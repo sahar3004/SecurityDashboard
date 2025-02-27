@@ -7,8 +7,6 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <!-- מיכל הכניסה -->
     <div id="login-container">
         <form id="login-form">
             <input type="text" id="username" placeholder="שם משתמש">
@@ -17,15 +15,22 @@
         </form>
     </div>
 
-    <!-- מיכל הדשבורד (מוסתר כברירת מחדל) -->
     <div id="dashboard" style="display: none;">
         <h1>📊 דשבורד דירוג מאבטחים</h1>
-        <button id="refresh-btn">🔄 רענן נתונים</button>
+
+        <!-- אזור שליטה בעמודות -->
+        <div id="control-panel">
+            <div id="column-selector">
+                <button id="toggle-columns">⚙️ בחר עמודות</button>
+                <div id="columns-container" class="dropdown-content"></div>
+            </div>
+            <button id="refresh-btn">🔄 רענן נתונים</button>
+        </div>
+
+        <!-- טבלת הנתונים -->
         <table id="data-table"></table>
     </div>
 
-    <!-- טעינת ה-JavaScript לאחר טעינת ה-HTML -->
     <script src="script.js"></script>
-
 </body>
 </html>
