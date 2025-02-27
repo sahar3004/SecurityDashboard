@@ -173,3 +173,10 @@ button:hover {
     background-color: #24d14a;
     transform: scale(0.98); /* אנימציה קטנה בעת לחיצה */
 }
+
+#column-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px; /* רווח אופציונלי בין הפריטים – ניתן לשנות לפי הצורך */
+}
