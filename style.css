@@ -138,16 +138,17 @@ button:hover {
 
 /* כפתורים אחידים */
 #control-panel button {
-    padding: 8px 12px;
+    padding: 10px 15px;
     font-size: 16px;
     cursor: pointer;
     border-radius: 5px;
-    border: 1px solid #ccc;
-    background-color: #f5f5f5;
+    border: none;
+    background-color: #28a745; /* ירוק */
+    color: white;
+    font-weight: bold;
     transition: background 0.3s ease;
 }
-
-/* שינוי רקע לכפתור בעת מעבר עכבר */
+/* שינוי צבע בעת מעבר עכבר */
 #control-panel button:hover {
-    background-color: #e0e0e0;
+    background-color: #0a5c04;
 }
